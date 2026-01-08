@@ -82,6 +82,115 @@ Constraint :
 
 
 		Foreign Key (FK) :
-		default
+			Foreign key is Primary key of parent table and
+				reference key of child table is called as FK.
+			We can have null value in FK.
+			We can have multiple FK in single table.
+			If we are insert/update record in parent table then reference key value
+			 must be present in parent table.
+			And if we delete some value from parent table then it is not used /
+				reference in any child table.
+
+			-- Syntax :
+				-- Create new table
+				Create table tbl_name
+				(
+					Column_name datatype,
+					column_name datatype,
+					.
+					.
+					column_nameN datatype,
+
+					Constraint cn_name foreign key (Column_name_childtable)
+					references parent_table(parent_table_columnname)
+				)
+
+				-- In existing table
+				Alter table tbl_name
+				Add constraint cn_name foreign key (Column_name_Childtable)
+				references parent_table(parent_table_columnname)
+
+			-- Example :
+				-- Parent table
+				Create table tbl_StudentMaster
+				(
+					Student_Id int identity(1,1) primary key,
+					Student_Name nvarchar(15),
+					Student_Age int
+				)
+
+				-- Child table
+				Create table tbl_StudentDetail
+				(
+					StudentDetail_Id int primary key identity(1,1),
+					Student_Id int,
+					StudentDetail_Marks decimal(18,2),
+					StudentDetail_Subject nvarchar(20),
+
+					Constraint cn_fk_StudentId foreign key (Student_Id)
+					references tbl_StudentMaster(Student_Id)
+				)
+
+				Select * from tbl_StudentMaster
+				Select * from tbl_StudentDetail
+
+				Insert into tbl_StudentMaster(Student_Name,Student_Age)
+				values('Harsh',23)
+
+				Insert into tbl_StudentDetail(Student_Id,StudentDetail_Marks,
+					StudentDetail_Subject)
+				values(1,'25.20','Maths')
+
+				Update tbl_StudentDetail set Student_Id = null
+
+				Delete from tbl_StudentMaster where student_id = 2
+
+		default :
+			We can set default value when user not use that column to insert/Update.
+			If we use that column and set somevalue like blank then it will consider
+				that value and default will not work.
+
+			-- Syntax :
+				Create table tbl_name
+				(
+					Column_name datatype,
+					column_name datatype default 'value',
+					.
+					.
+					column_nameN datatype default 'value',					
+				)
+
+				-- Existing table
+				Alter table tbl_name
+				Add constraint cn_name default 'value' for column_name
+
+			-- Example :
+				Select * from tbl_StudentMaster
+
+				Insert into tbl_StudentMaster(Student_Age)
+				values(25)
+
+				Insert into tbl_StudentMaster(Student_Name)
+				values('Mahipat')
+
+				Insert into tbl_StudentMaster(Student_Name,Student_Age)
+				values(null,24)
+
+				Insert into tbl_StudentMaster(Student_Age)
+				values(26)
+
+				Insert into tbl_StudentMaster(Student_Name)
+				values('Harshit')
+
+				-- Existing table
+				Alter table tbl_StudentMaster
+				Add constraint cn_StudentAge default 0 for Student_Age
+
+				Alter table tbl_StudentMaster
+				Add constraint cn_StudentName default 'unknown' for Student_Name
+
+
 		check
 		unique
+		not null
+		null
