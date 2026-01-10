@@ -190,7 +190,117 @@ Constraint :
 				Add constraint cn_StudentName default 'unknown' for Student_Name
 
 
-		check
-		unique
-		not null
-		null
+		check :
+			When we need to insert data based on condition.
+			If condition is true then only it will allow to insert a data else
+				it will throw error.
+
+			-- Syntax :
+				-- Create new table
+				Create table tbl_name
+				(
+					column_name datatype,
+					column_name datatype check(condition),
+					.
+					.
+					.
+					column_namen datatype
+				)
+
+				-- Existing table
+				Alter table tbl_name
+				Add constraint cn_name check(condition)
+
+			-- Example
+				Create table tbl_StaffMaster
+				(
+					Staff_Id int primary key identity (1,1),
+					Staff_Name varchar(20),
+					Staff_Age int check(Staff_Age > 18)			
+				)
+
+				Insert into tbl_StaffMaster(Staff_Name,Staff_Age)
+				values('Darshit',19)
+
+		unique :
+			This constraint make sure that it will store unique value for that column.
+			We can apply this constraint nmultiple columns.
+
+			-- Syntax :
+				-- Create new table
+				Create table tbl_name
+				(
+					column_name datatype,
+					column_name datatype unique,
+					.
+					.
+					.
+					column_namen datatype unique
+				)
+
+				-- Existing table
+				Alter table tbl_name
+				Add constraint cn_name unique(column_name)
+
+			-- Example :
+				
+
+				Select * from tbl_StaffMaster				
+
+				Insert into tbl_StaffMaster(Staff_Name,Staff_Age)
+				Values('darshit',25)
+
+				Alter table tbl_StaffMaster
+				Drop constraint cn_StaffName
+
+		not null :
+			Make column manadatory or make user to insert data compulsory.
+			User can not leave this column value in insert / update statement.
+
+			-- Syntax :
+				-- Create new table
+				Create table tbl_name
+				(
+					column_name datatype,
+					column_name datatype not null,
+					.
+					.
+					.
+					column_namen datatype
+				)
+
+				-- For existing table
+				Alter table tbl_name
+				Alter column column_name datatype not null
+
+			-- Example :
+				Alter table tbl_StaffMaster
+				Alter column Staff_Address varchar(20) not null
+
+				Select * from tbl_StaffMaster
+
+				Insert into tbl_StaffMaster(Staff_Name,Staff_Address)
+				values('Dev','Baroda')
+
+				Insert into tbl_StaffMaster(Staff_Name,Staff_Address)
+				values('Dev-1','')
+
+				Insert into tbl_StaffMaster(Staff_Name)
+				values('Dev-2')
+
+		null :
+			Allow user to insert null value in column.
+			By default this constraint is applied on columns.
+
+			-- Syntax :
+				Alter table tbl_name
+				Alter column column_name datatype null
+
+			-- Example :
+				Alter table tbl_StaffMaster
+				Alter column Staff_Address varchar(20) null
+
+				Insert into tbl_StaffMaster(Staff_Name)
+				values('Dev-2')
+
+				Select * from tbl_StaffMaster
