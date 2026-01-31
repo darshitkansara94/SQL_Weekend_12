@@ -58,6 +58,44 @@ Conditions :
 				End
 
 
+		If..Else if..Else :
+			Working structure is similar to the If..Else.
+			In a single execution only one block of code is executed.
+			We can include n number of else if condition.
 
-		If..Else if..Else
+			-- Syntax :
+				If (condition)
+				Begin
+					-- Block of code
+				End
+				Else if (condition)
+				Begin
+					-- Block of code
+				End
+				Else if (condition)
+				Begin
+					-- Block of code
+				End
+				Else
+				Begin
+					-- Block of code
+				End
+
+			-- Example :
+				Declare @val1 int = 5
+				Declare @val2 int = 5
+
+				If (@val1 > @Val2) 
+				Begin
+					print(concat_ws(' ',@val1,'is greater than',@val2))
+				End
+				Else if (@val1 < @Val2)
+				Begin
+					print(concat_ws(' ',@val1,'is less than',@val2))
+				End
+				Else
+				Begin
+					print(concat_ws(' ',@val1,'is equal to',@val2))
+				End
+
 		Case (Switch condition)
